@@ -11,6 +11,21 @@ const state = {
       answers: ["Wicked high", "Less than half of the historical high hit in 1980", "The Highest its been in 47 years", "Bonkers"],
       correct: 1,
     },
+    {
+      question: "As of February 2017 how many people have been affected by D-Trumps Travel ban?",
+      answers: ["109", "37", "60,000+", "Only those with abnormally large hands"],
+      correct: 2,
+    },
+    {
+      question: "According to a vast majority of polls Americans would like to?",
+      answers: ["See D-Trumps tax returns", "Don't care", "Be set on fire", "Swim with sharks"],
+      correct: 0,
+    },
+    {
+      question: "D-Trumps Electoral College victory was?",
+      answers: ["A Massive landslide victory", "Historically in the bottom quarter", "Russia", "Pleasent to the ears"],
+      correct: 1,
+    },
   ],
   currentQuestion: -1,
   userAnswers: [],
@@ -69,14 +84,14 @@ function displayNextQuestion(state) {
   else if (state.currentQuestion >= state.questions.length) {
     let currentRank = setRank(state);
 
-    return $display.html(`<h2>Time to check the FACTS! You're final score is ${state.score} out of ${state.questions.length}</h2><h3>You have achieved the rank of ${currentRank}</h3><button class="restart">Try Again</button>`);
+    return $display.html(`<h1 class="final">Time to check the FACTS!</h1> <h2 class="f-score">You're final score is ${state.score} FACTS ${state.questions.length} ALT. FACTS</h2><h3 class="f-rank">You have achieved the rank of ${currentRank}</h3><button class="restart">Try Again</button>`);
   }
   $('.startpage').addClass('hidden');
   let currentQuestionObj = state.questions[state.currentQuestion];
   $display.removeClass('hidden');
   let questionHTML = `<p class ="question">${currentQuestionObj.question}</p>`;
   currentQuestionObj.answers.forEach(function (answer, i) {
-    questionHTML += `<button class='answer'id='${i}'> ${answer}</button>`;
+    questionHTML += `<button class='answer'id='${i}'> ${answer}</button><br>`;
   });
   $display.html(questionHTML);
 }
@@ -86,12 +101,11 @@ function displayFeedBack(state) {
   let $display = $('.quiz');
   let feedbackHtml = `<button class='next'>Next Question</button>`;
   if (checker) {
-    feedbackHtml += `<h1>FACT! You are Correct</h1>`;
-  }
-  else {
+    feedbackHtml += `<h1 class="fact">FACT! You are Correct</h1>`;
+  } else {
     let questionObject = state.questions[state.currentQuestion]
-    feedbackHtml += `<h1>ALT FACT!</h1><h2>Put down Britebart and get some real news</h2><h3>The correct answer was ${questionObject.answers[questionObject.correct]}`
-  }
+    feedbackHtml += `<h1 class="alt-fact">ALT FACT!</h1><h2>Put down Britebart and get some real news</h2><h3>The correct answer was ${questionObject.answers[questionObject.correct]}`
+    }
   feedbackHtml += `<p>Score: ${state.score} out of ${state.currentQuestion + 1}</p>`
   $display.html(feedbackHtml);
 }
