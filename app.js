@@ -83,8 +83,8 @@ function displayNextQuestion(state) {
   }
   else if (state.currentQuestion >= state.questions.length) {
     let currentRank = setRank(state);
-
-    return $display.html(`<h1 class="final">Time to check the FACTS!</h1> <h2 class="f-score">You're final score is ${state.score} FACTS ${state.questions.length} ALT. FACTS</h2><h3 class="f-rank">You have achieved the rank of ${currentRank}</h3><button class="restart">Try Again</button>`);
+    let altFacts = (state.questions.length) - state.score;
+    return $display.html(`<h1 class="final">Time to check the FACTS!</h1> <h2 class="f-score">You're final score is ${state.score} FACTS and ${altFacts} ALT. Facts</h2><h3 class="f-rank">You have achieved the rank of ${currentRank}</h3><button class="restart">Try Again</button>`);
   }
   $('.startpage').addClass('hidden');
   let currentQuestionObj = state.questions[state.currentQuestion];
